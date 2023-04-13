@@ -114,7 +114,7 @@ pytz==2022.7.1
 pytz-deprecation-shim==0.1.0.post0
 PyWavelets==1.4.1
 pywin32==305.1
-pywinpty @ file:///C:/b/abs_73vshmevwq/croot/pywinpty_1677609966356/work/target/wheels/pywinpty-2.0.10-cp39-none-win_amd64.whl
+
 PyYAML==6.0
 pyzmq @ file:///C:/ci/pyzmq_1657615952984/work
 querystring-parser==1.2.4
