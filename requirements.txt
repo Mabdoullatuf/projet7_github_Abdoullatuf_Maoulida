@@ -54,7 +54,7 @@ networkx==2.6.3
 nltk==3.8.1
 
 numba==0.56.4
-numpy==1.23.5
+numpy==1.21.6
 oauthlib==3.2.2
 
 pandas==1.5.3
