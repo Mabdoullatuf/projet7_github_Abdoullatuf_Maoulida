@@ -46,7 +46,7 @@ llvmlite==0.39.1
 Mako==1.2.4
 Markdown==3.4.3
 markdown-it-py==2.2.0
-matplotlib==3.7.1
+matplotlib==3.5.3
 mdurl==0.1.2
 mlflow==2.2.2
 
