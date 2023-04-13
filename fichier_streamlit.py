@@ -39,6 +39,25 @@ st.title(page_title + " " + page_icon)
 # Sélection de l'identifiant SK_ID_CURR à partir d'un menu déroulant
 id_client = st.selectbox("Sélectionner l'identifiant du client", df["SK_ID_CURR"])
 
+#--------------------------------------------------------------------------
+# Définition de l'URL de l'API FastAPI
+url = "https://fast-api-dashboard-final.onrender.com/predict/{}".format(id_client)
+
+# Envoi de la requête à l'API FastAPI
+response = requests.get(url)
+
+# Traitement de la réponse de l'API FastAPI
+if response.status_code == 200:
+    probability = response.json()["probabilité d'éligibilité"]
+    st.write(f"Probabilité d'éligibilité : {probability:.2%}")
+else:
+    st.write("Erreur lors de l'appel à l'API FastAPI : {}".format(response.text))
+
+#------------------------------------------
+
+
+
+
 # Extraction des données associées à l'identifiant SK_ID_CURR sélectionné
 data_client = df.loc[df["SK_ID_CURR"] == id_client]
 
