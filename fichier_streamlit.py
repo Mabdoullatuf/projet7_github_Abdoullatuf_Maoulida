@@ -48,8 +48,8 @@ response = requests.get(url)
 
 # Traitement de la réponse de l'API FastAPI
 if response.status_code == 200:
-    probability = response.json()["probabilité d'éligibilité"]
-    st.write(f"Probabilité d'éligibilité : {probability:.2%}")
+    proba = response.json()["probabilité defaut de payement"]
+    st.write(f"Probabilité défaut de payement : {proba:.2%}")
 else:
     st.write("Erreur lors de l'appel à l'API FastAPI : {}".format(response.text))
 
@@ -72,12 +72,12 @@ X = data_client.drop(["SK_ID_CURR", "TARGET", "prediction", "proba"], axis=1).va
 # Prédiction et probabilité 
 prediction = model.predict(X)
 proba = model.predict_proba(X)[:, 1][0]
-proba_defaut = 1 - proba
+
 
 if prediction == 1:
     st.write('<p style="color: red; font-weight: bold; font-size: 24px;">Le client {} est éligible à un prêt avec une probabilité de payement de {}%.</p>'.format(id_client, round(proba*100, 2)), unsafe_allow_html=True)
 else:
-    st.write('<p style="color: red; font-weight: bold;font-size: 24px;">Le client {} n\'est pas éligible à un prêt. Sa probabilité de défaut de payement est de {}%.</p>'.format(id_client, round(proba_defaut*100, 2)), unsafe_allow_html=True)
+    st.write('<p style="color: red; font-weight: bold;font-size: 24px;">Le client {} n\'est pas éligible à un prêt. Sa probabilité de défaut de payement est de {}%.</p>'.format(id_client, round(proba*100, 2)), unsafe_allow_html=True)
 
 
 #________Feature_importance_locale________________________
