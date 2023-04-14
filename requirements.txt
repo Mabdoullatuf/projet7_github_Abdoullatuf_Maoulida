@@ -33,6 +33,8 @@ imblearn==0.0
 
 importlib-resources==5.12.0
 
+ipython == 8.12.0
+
 itsdangerous==2.1.2
 
 joblib==1.2.0
