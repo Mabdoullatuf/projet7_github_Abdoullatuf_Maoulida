@@ -36,10 +36,10 @@ st.title(page_title + " " + page_icon)
 
 
 
+#--------------------------------------------------------------------------
 # Sélection de l'identifiant SK_ID_CURR à partir d'un menu déroulant
 id_client = st.selectbox("Sélectionner l'identifiant du client", df["SK_ID_CURR"])
 
-#--------------------------------------------------------------------------
 # Définition de l'URL de l'API FastAPI
 url = "https://fast-api-dashboard-final.onrender.com/predict/{}".format(id_client)
 
@@ -54,6 +54,7 @@ else:
     st.write("Erreur lors de l'appel à l'API FastAPI : {}".format(response.text))
 
 #------------------------------------------
+
 
 
 
@@ -75,7 +76,7 @@ proba = model.predict_proba(X)[:, 1][0]
 
 
 if prediction == 1:
-    st.write('<p style="color: red; font-weight: bold; font-size: 24px;">Le client {} est éligible à un prêt avec une probabilité de payement de {}%.</p>'.format(id_client, round(proba*100, 2)), unsafe_allow_html=True)
+    st.write('<p style="color: green; font-weight: bold; font-size: 24px;">Le client {} est éligible à un prêt avec une probabilité de payement de {}%.</p>'.format(id_client, round(proba*100, 2)), unsafe_allow_html=True)
 else:
     st.write('<p style="color: red; font-weight: bold;font-size: 24px;">Le client {} n\'est pas éligible à un prêt. Sa probabilité de défaut de payement est de {}%.</p>'.format(id_client, round(proba*100, 2)), unsafe_allow_html=True)
 
@@ -163,6 +164,48 @@ def interpretabilite():
                     
 st.subheader('Interpretabilité du modèle : Quelles variables sont les plus importantes ?')
 interpretabilite()
+
+#________Analyse_comparative_____________________
+
+st.subheader('Analyse comparative entre le clients courant et les classes :')
+
+list_features = df.drop(["SK_ID_CURR", "TARGET", "prediction", "proba"], axis=1).columns
+feature_1 = st.selectbox('Selectionnez la feature à comparer :',list_features)
+
+X_validé = df.loc[df['prediction']==1]
+X_val = X_validé[feature_1].mean()
+
+X_refusé = df.loc[df['prediction']==0]
+X_ref = X_refusé[feature_1].mean()
+
+X_client = data_client[feature_1].values.item()
+
+clients = pd.DataFrame([["Moyenne_des_clients_validé", X_val], ["Moyenne_des_client_refusé", X_ref], ["Client_courant", X_client]], columns=["Clients","Valeur"])
+
+fig = px.bar(clients, x='Clients', y=["Valeur"], barmode='group', height=400)
+
+st.plotly_chart(fig)
+
+#______SHAP_Global_____________________
+
+
+
+
+
+#________Analyse_bivariée_____________________
+
+feature_2 = st.selectbox('Selectionnez la première feature :',list_features)
+feature_3 = st.selectbox('Selectionnez la deuxième feature :',list_features)
+
+x=df[feature_2]
+y=df[feature_3]
+
+plot = px.scatter(x=x, y=y)
+
+client_point = plot.add_trace(go.Scatter(x=data_client[feature_2].values, y=data_client[feature_3].values, mode = 'markers', marker_symbol = 'star', marker_size = 15))
+
+st.plotly_chart(plot)
+
 
 
 
