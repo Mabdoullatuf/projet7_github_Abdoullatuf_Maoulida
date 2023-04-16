@@ -33,6 +33,11 @@ layout = "centered"
 st.set_page_config(page_title=page_title, page_icon=page_icon, layout=layout)
 st.title(page_title + " " + page_icon)
 
+st.write("""
+    <div style="position: fixed; bottom: 0; left: 0; right: 0; background-color: #F5F5F5; padding: 10px; text-align: center;">
+        Etudiant: Abdoullatuf Maoulida
+    </div>
+""", unsafe_allow_html=True)
 
 
 
@@ -41,6 +46,7 @@ st.title(page_title + " " + page_icon)
 
 # URL de l'API FastAPI
 url = "http://localhost:8000/predict/"
+#url = https://fast-api-dashboard-final.onrender.com
 
 # Définition de la fonction pour effectuer la prédiction
 def get_prediction(id_client):
