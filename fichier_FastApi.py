@@ -6,10 +6,11 @@ import joblib
 import numpy as np
 
 app = FastAPI()
-#----------------------------------------------------------------------
+
 # Configuration des options de CORS
 origins = [
-    "https://fast-api-dashboard-final.onrender.com",
+    "http://localhost:8501",  # autoriser les demandes provenant de Streamlit en local
+    "https://fast-api-dashboard-final.onrender.com", # autoriser les demandes provenant de Streamlit en ligne
 ]
 
 # Activation du middleware CORS
@@ -20,7 +21,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-#------------------------------------------------------
 
 # Chargement du modèle LGBMClassifier pré-entraîné et enregistré
 model = joblib.load('LGBM_best_model.joblib')
@@ -28,7 +28,6 @@ model = joblib.load('LGBM_best_model.joblib')
 # Chargement des données
 df = pd.read_csv('df_dash_10.csv')
 
-#-----------------------------------------------
 # Définition du schéma de la requête
 class PredictionRequest(BaseModel):
     id_client: int
@@ -37,11 +36,7 @@ class PredictionRequest(BaseModel):
 class PredictionResponse(BaseModel):
     proba: float
 
-        
-
-#-----------------------------------------
-
-# Définition de la route de l'API  pour la prédiction
+# Définition de la route de l'API pour la prédiction
 @app.get("/predict/{id_client}", response_model=PredictionResponse)
 def predict(id_client: int):
     # Extraction des données associées à l'identifiant SK_ID_CURR sélectionné
@@ -49,14 +44,12 @@ def predict(id_client: int):
 
     # Préparation des données pour la prédiction
     X = data_client.drop(["SK_ID_CURR", "TARGET", "prediction", "proba"], axis=1).values
-    #X = np.nan_to_num(X)
 
     # Prédiction de la probabilité de défaut de paiement
     proba = model.predict_proba(X)[:, 1][0]
-    prediction = model.predict(X)[0]
 
     # Retour de la probabilité de défaut de paiement
-    return {"La probabilité est de": proba}
+    return {"proba": proba}
 
 #Pour lancer l'API vous devez installer les dépendences en executant la commande suivante dans un terminal de préférence
 #anaconda prompt: pip install -r requirements.txt
