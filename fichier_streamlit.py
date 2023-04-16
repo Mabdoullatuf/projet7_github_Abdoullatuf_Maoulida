@@ -37,21 +37,20 @@ st.title(page_title + " " + page_icon)
 
 
 #--------------------------------------------------------------------------
+
+
+# URL de l'API FastAPI
+url = "http://localhost:8000/predict/"
+
+# Définition de la fonction pour effectuer la prédiction
+def get_prediction(id_client):
+    response = requests.get(url + str(id_client))
+    proba = response.json()['proba']
+    return proba
+
+
 # Sélection de l'identifiant SK_ID_CURR à partir d'un menu déroulant
 id_client = st.selectbox("Sélectionner l'identifiant du client", df["SK_ID_CURR"])
-
-# Définition de l'URL de l'API FastAPI
-url = "https://fast-api-dashboard-final.onrender.com/predict/{}".format(id_client)
-
-# Envoi de la requête à l'API FastAPI
-response = requests.get(url)
-
-# Traitement de la réponse de l'API FastAPI
-if response.status_code == 200:
-    proba = response.json()["probabilité defaut de payement"]
-    st.write(f"Probabilité défaut de payement : {proba:.2%}")
-else:
-    st.write("Erreur lors de l'appel à l'API FastAPI : {}".format(response.text))
 
 #------------------------------------------
 
@@ -83,17 +82,7 @@ else:
 
 #________Feature_importance_locale________________________
 
-#display_f_importance = display_client.drop([
 
-#explainer = shap.TreeExplainer(lgbm_model)
-#shap_values = explainer.shap_values(display_client)
-# Summary plot
-#shap.plots.bar(shap_values, max_display=15)
-
-#X_test_10_ = X_test_10.drop(['Unnamed: 0', 'index', 'prediction', 'probability'], axis=1)
-
- # Test set sans l'identifiant
-#X_bar = X_test_10_.set_index('level_0')
 # Entraînement de shap sur le train set
 bar_explainer = shap.Explainer(model, X)
 bar_values = bar_explainer(X, check_additivity=False)
