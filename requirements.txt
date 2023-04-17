@@ -79,6 +79,7 @@ pyngrok==6.0.0
 pynndescent==0.5.8
 pyparsing==3.0.9
 
+pytest == 7.3.1
 pytz==2022.7.1
 pytz-deprecation-shim==0.1.0.post0
 PyWavelets==1.4.0
