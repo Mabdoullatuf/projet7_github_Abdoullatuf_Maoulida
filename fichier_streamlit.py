@@ -35,7 +35,7 @@ st.title(page_title + " " + page_icon)
 
 st.write("""
     <div style="position: fixed; bottom: 0; left: 0; right: 0; background-color: #F5F5F5; padding: 10px; text-align: center;">
-        Etudiant: Abdoullatuf Maoulida
+        Abdoullatuf Maoulida
     </div>
 """, unsafe_allow_html=True)
 
