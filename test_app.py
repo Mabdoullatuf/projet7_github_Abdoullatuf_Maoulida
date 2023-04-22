@@ -6,7 +6,11 @@ from fichier_streamlit import get_prediction
 # Test si l'API retourne une réponse valide pour un id_client donné
 def test_api_response():
     id_client = 392266
-    response = requests.get(f"http://localhost:8000/predict/{id_client}")
+    https://fast-api-dashboard-final.onrender.com/docs#/default/predict_predict__id_client__get
+    
+    #response = requests.get(f"http://localhost:8000/predict/{id_client}")
+    
+    response = requests.get(f"https://fast-api-dashboard-final.onrender.com/docs/{id_client}")
     assert response.status_code == 200
     assert response.json()["id_client"] == id_client
 
