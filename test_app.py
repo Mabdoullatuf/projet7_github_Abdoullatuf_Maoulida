@@ -9,8 +9,8 @@ from fichier_streamlit import get_prediction
 df = pd.read_csv('df_dash_10.csv')
 model = joblib.load('LGBM_best_model.joblib')
 
-#url = "http://localhost:8000/predict/"  # URL de l'API FastAPI
-url = https://fast-api-dashboard.onrender.com
+#url = "http://localhost:8000/predict/"  # URL de l'API FastAPI en local
+url = "https://fast-api-dashboard.onrender.com/"   # URL de l'API FastAPI en ligne
 
 
 
@@ -25,20 +25,6 @@ def test_api():
     #assert response_json["id_client"] == id_client  # Vérifier l'identifiant client dans la réponse
     assert 0 <= response_json["proba"] <= 1  # Vérifier la plage de la probabilité
     #assert isinstance(response_json["prediction"], int)  # Vérifier le type de la prédiction
-
-
-
-# # Test si l'API retourne une réponse valide pour un id_client donné
-# def test_api_response():
-#     id_client = 392266
-    
-#     #https://streamlit-app-p7.onrender.com
-    
-#     response = requests.get(f"http://localhost:8000/predict/{id_client}")
-    
-#     #response = requests.get(f"https://streamlit-app-p7.onrender.com/{id_client}")
-#     assert response.status_code == 200
-#     assert response.json()["id_client"] == id_client
 
     
     
