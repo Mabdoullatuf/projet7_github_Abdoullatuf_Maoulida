@@ -10,7 +10,7 @@ app = FastAPI()
 # Configuration des options de CORS
 origins = [
     "http://localhost:8501",  # autoriser les demandes provenant de Streamlit en local
-    "https://fast-api-dashboard-final.onrender.com", # autoriser les demandes provenant de Streamlit en ligne
+    "https://streamlit-app-p7.onrender.com", # autoriser les demandes provenant de Streamlit en ligne
 ]
 
 # Activation du middleware CORS
