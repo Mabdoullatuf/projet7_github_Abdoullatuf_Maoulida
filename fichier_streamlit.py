@@ -83,7 +83,7 @@ proba = model.predict_proba(X)[:, 1][0]
 if prediction == 1:
     st.write('<p style="color: green; font-weight: bold; font-size: 24px;">Le client {} est éligible à un prêt avec une probabilité de payement de {}%.</p>'.format(id_client, round(proba*100, 2)), unsafe_allow_html=True)
 else:
-    st.write('<p style="color: red; font-weight: bold;font-size: 24px;">Le client {} n\'est pas éligible à un prêt. Sa probabilité de défaut de payement est de {}%.</p>'.format(id_client, round(proba*100, 2)), unsafe_allow_html=True)
+    st.write('<p style="color: red; font-weight: bold;font-size: 24px;">Le client {} n\'est pas éligible à un prêt. Sa probabilité de payement est de {}%.</p>'.format(id_client, round(proba*100, 2)), unsafe_allow_html=True)
 
 
 #________Feature_importance_locale________________________
