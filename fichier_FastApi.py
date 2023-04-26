@@ -5,8 +5,8 @@ import pandas as pd
 import joblib
 import numpy as np
 
-app = FastAPI()
 
+app = FastAPI()
 # Configuration des options de CORS
 origins = [
     "http://localhost:8501",  # autoriser les demandes provenant de Streamlit en local
