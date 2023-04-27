@@ -45,8 +45,8 @@ st.write("""
 
 
 # URL de l'API FastAPI
-url = "http://localhost:8000/predict/"
-#url = https://fast-api-dashboard-final.onrender.com
+#url = "http://localhost:8000/predict/"
+url = "https://fast-api-dashboard.onrender.com/"
 
 # Définition de la fonction pour effectuer la prédiction
 def get_prediction(id_client):
