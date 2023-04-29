@@ -7,20 +7,20 @@ import numpy as np
 
 
 app = FastAPI()
-# Configuration des options de CORS
-origins = [
-    "http://localhost:8501",  # autoriser les demandes provenant de Streamlit en local
-    "https://streamlit-app-p7.onrender.com", # autoriser les demandes provenant de Streamlit en ligne
-]
+# # Configuration des options de CORS
+# origins = [
+#     "http://localhost:8501",  # autoriser les demandes provenant de Streamlit en local
+#     "https://streamlit-app-p7.onrender.com", # autoriser les demandes provenant de Streamlit en ligne
+# ]
 
-# Activation du middleware CORS
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+# # Activation du middleware CORS
+# app.add_middleware(
+#     CORSMiddleware,
+#     allow_origins=origins,
+#     allow_credentials=True,
+#     allow_methods=["*"],
+#     allow_headers=["*"],
+# )
 
 # Chargement du modèle LGBMClassifier pré-entraîné et enregistré
 model = joblib.load('LGBM_best_model.joblib')
