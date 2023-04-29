@@ -51,7 +51,7 @@ url = "https://fast-api-dashboard.onrender.com/Test/"
 
 # Définition de la fonction pour effectuer la prédiction
 def get_prediction(id_client):
-    response = requests.get(url + str(id_client))
+    response = requests.get(url) # + str(id_client)
     proba = response.json()['proba']
     return proba
 
