@@ -10,7 +10,7 @@ df = pd.read_csv('df_dash_10.csv')
 model = joblib.load('LGBM_best_model.joblib')
 
 #url = "http://localhost:8000/predict/"  # URL de l'API FastAPI en local
-url = "https://fast-api-dashboard.onrender.com/predict/"   # URL de l'API FastAPI en ligne
+url = "https://fast-api-dashboard-final.onrender.com/predict/"   # URL de l'API FastAPI en ligne
 
 
 
