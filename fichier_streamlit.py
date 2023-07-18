@@ -16,10 +16,10 @@ shap.initjs()
 
 
 # Chargement du modèle LGBMClassifier pré-entraîné et enregistré
-model = joblib.load('LGBM_best_model.joblib')
+model = joblib.load('final_model.joblib')
 
 # Chargement des données
-df = pd.read_csv('df_dash_10.csv')
+df = pd.read_csv('df_dash.csv')
 
 #___________ Paramètres de la page_______________
 page_title = "Analyse locale et globale de vos clients"
@@ -78,13 +78,17 @@ X = data_client.drop(["SK_ID_CURR", "TARGET", "prediction", "proba"], axis=1).va
 
 # Prédiction et probabilité 
 prediction = model.predict(X)
-proba = model.predict_proba(X)[:, 1][0]
+pred_proba = model.predict_proba(X) 
+proba_defaut_paiment = pred_proba[0][0]
+proba_paiment = 1 - proba_defaut_paiment
 
 
-if prediction == 1:
-    st.write('<p style="color: green; font-weight: bold; font-size: 24px;">Le client {} est éligible à un prêt avec une probabilité de payement de {}%.</p>'.format(id_client, round(proba*100, 2)), unsafe_allow_html=True)
+
+
+if proba_defaut_paiment < 0.55:
+    st.write('<p style="color: green; font-weight: bold; font-size: 24px;">Le client {} est éligible à un prêt avec une probabilité de payement de {}%.</p>'.format(id_client, round(proba_paiment*100, 2)), unsafe_allow_html=True)
 else:
-    st.write('<p style="color: red; font-weight: bold;font-size: 24px;">Le client {} n\'est pas éligible à un prêt. Sa probabilité de payement est de {}%.</p>'.format(id_client, round(proba*100, 2)), unsafe_allow_html=True)
+    st.write('<p style="color: red; font-weight: bold;font-size: 24px;">Le client {} n\'est pas éligible à un prêt. Sa probabilité de payement est faible, elle est de {}%.</p>'.format(id_client, round(proba_paiment*100, 2)), unsafe_allow_html=True)
 
 
 #________Feature_importance_locale________________________
