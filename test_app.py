@@ -15,7 +15,7 @@ url = "https://fast-api-dashboard-final.onrender.com/predict/"   # URL de l'API 
 
 
 def test_api():
-    id_client = 392266  # Sélectionner un identifiant client
+    id_client = 408267  # Sélectionner un identifiant client
 
     response = requests.get(url + str(id_client))
     assert response.status_code == 200  # Vérifier le code de statut HTTP
@@ -32,7 +32,7 @@ def test_api():
 
 # Test si la page affiche les informations du client sélectionné
 def test_affichage_infos_client():
-    id_client = 392266
+    id_client = 408267
     data_client = df.loc[df["SK_ID_CURR"] == id_client]
     assert data_client is not None
 
@@ -42,7 +42,7 @@ def test_affichage_infos_client():
 # Test si la prédiction et la probabilité affichées sont valides
 
 def test_prediction_proba():
-    id_client = 392266
+    id_client = 408267
     data_client = df.loc[df["SK_ID_CURR"] == id_client]
     X = data_client.drop(["SK_ID_CURR", "TARGET", "prediction", "proba"], axis=1).values
     prediction = model.predict(X)
