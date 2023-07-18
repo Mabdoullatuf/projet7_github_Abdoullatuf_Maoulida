@@ -1,18 +1,26 @@
-
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+import pandas as pd
 import joblib
 import numpy as np
-import streamlit as st
-import pandas as pd
-import numpy as np
-import requests
-import shap
-import plotly.express as px
-import matplotlib.pyplot as plt
-import plotly.figure_factory as ff
-import plotly.express as px
-import altair as alt
-import plotly.graph_objects as go
-shap.initjs()
+
+
+app = FastAPI()
+# Configuration des options de CORS
+# origins = [
+#     "http://localhost:8501",  # autoriser les demandes provenant de Streamlit en local
+#     "https://streamlit-app-p7.onrender.com", # autoriser les demandes provenant de Streamlit en ligne
+# ]
+
+# # Activation du middleware CORS
+# app.add_middleware(
+#     CORSMiddleware,
+#     allow_origins=origins,
+#     allow_credentials=True,
+#     allow_methods=["*"],
+#     allow_headers=["*"],
+# )
 
 
 # Chargement du modèle LGBMClassifier pré-entraîné et enregistré
@@ -20,6 +28,7 @@ model = joblib.load('final_model.joblib')
 
 # Chargement des données
 df = pd.read_csv('df_dash.csv')
+<<<<<<< HEAD
 
 #___________ Paramètres de la page_______________
 page_title = "Analyse locale et globale de vos clients"
@@ -215,13 +224,33 @@ client_point = plot.add_trace(go.Scatter(x=data_client[feature_2].values, y=data
 st.plotly_chart(plot)
 
 
+=======
+>>>>>>> efdd1c2b62ea2092bcc5245e49fd3218be6ef87b
 
+# Définition du schéma de la requête
+class PredictionRequest(BaseModel):
+    id_client: int
 
+# Définition du schéma de la réponse
+class PredictionResponse(BaseModel):
+    proba: float
 
+# Définition de la route de l'API pour la prédiction
+@app.get("/predict/{id_client}", response_model=PredictionResponse)
+def predict(id_client: int):
+    # Extraction des données associées à l'identifiant SK_ID_CURR sélectionné
+    data_client = df.loc[df["SK_ID_CURR"] == id_client]
 
+    # Préparation des données pour la prédiction
+    X = data_client.drop(["SK_ID_CURR", "TARGET", "prediction", "proba"], axis=1).values
 
+    # Prédiction de la probabilité de défaut de paiement
+    proba = model.predict_proba(X)[:, 0][0]
 
+    # Retour de la probabilité de défaut de paiement
+    return {"proba": proba}
 
 #Pour lancer l'API vous devez installer les dépendences en executant la commande suivante dans un terminal de préférence
 #anaconda prompt: pip install -r requirements.txt
-# puis la commande suivante (après avoir lancé le fichier_FastApi): streamlit run fichier_streamlit.py
+# puis la commande suivante: uvicorn fichier_FastApi:app --reload
+
