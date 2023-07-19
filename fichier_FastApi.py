@@ -34,7 +34,8 @@ class PredictionRequest(BaseModel):
 
 # Définition du schéma de la réponse
 class PredictionResponse(BaseModel):
-    proba: float
+    probaClasse0: float
+    prediction: int
 
 # Définition de la route de l'API pour la prédiction
 @app.get("/predict/{id_client}", response_model=PredictionResponse)
@@ -46,10 +47,14 @@ def predict(id_client: int):
     X = data_client.drop(["SK_ID_CURR", "TARGET", "prediction", "proba_1"], axis=1).values
 
     # Prédiction de la probabilité de défaut de paiement
-    proba = model.predict_proba(X)[:, 0][0]
+    probaClasse0 = model.predict_proba(X)[:, 0][0]
+    
+    prediction = model.predict(X)[0]
+    
+    
 
     # Retour de la probabilité de paiement
-    return {"proba": proba}
+    return {"probaClasse0": probaClasse0, "prediction": prediction}
 
 #Pour lancer l'API vous devez installer les dépendences en executant la commande suivante dans un terminal de préférence
 #anaconda prompt: pip install -r requirements.txt

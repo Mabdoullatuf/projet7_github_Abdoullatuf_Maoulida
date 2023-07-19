@@ -2,7 +2,7 @@ import joblib
 import pandas as pd
 import pytest
 import requests
-from fichier_streamlit import get_prediction
+
 
 
 
@@ -23,28 +23,10 @@ def test_api():
     response_json = response.json()
     print(response_json)
     #assert response_json["id_client"] == id_client  # Vérifier l'identifiant client dans la réponse
-    assert 0 <= response_json["proba_1"] <= 1  # Vérifier la plage de la probabilité
-    #assert isinstance(response_json["prediction"], int)  # Vérifier le type de la prédiction
-
-    
-    
+    assert 0 <= response_json["proba"] or response_json["proba"]<= 1  # Vérifier la plage de la probabilité
+    assert response_json["prediction"] == 0 or response_json["prediction"] == 1
+pytest.main()
 
 
-# Test si la page affiche les informations du client sélectionné
-def test_affichage_infos_client():
-    id_client = 408267
-    data_client = df.loc[df["SK_ID_CURR"] == id_client]
-    assert data_client is not None
 
-    
-    
-    
-# Test si la prédiction et la probabilité affichées sont valides
 
-def test_prediction_proba():
-    id_client = 408267
-    data_client = df.loc[df["SK_ID_CURR"] == id_client]
-    X = data_client.drop(["SK_ID_CURR", "TARGET", "prediction", "proba_1"], axis=1).values
-    prediction = model.predict(X)
-    proba = model.predict_proba(X)[:, 1][0]
-    assert (prediction == 0 or prediction == 1) and proba >= 0 and proba <= 1

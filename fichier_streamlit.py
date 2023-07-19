@@ -47,7 +47,7 @@ st.write("""
 # URL de l'API FastAPI
 #url = "http://localhost:8000/predict/"
 
-url = "https://fast-api-dashboard.onrender.com/predict/"
+url = "https://fast-api-dashboard-final.onrender.com/"
 
 
 # Définition de la fonction pour effectuer la prédiction
@@ -55,10 +55,10 @@ def get_prediction(id_client):
 
     response = requests.get(url + str(id_client))
 
-   # response = requests.post(url + str(id_client))
+   #response = requests.post(url + str(id_client))
 
-    proba = response.json()['proba']
-    return proba
+    probaClasse0 = response.json()['probaClasse0']
+    return probaClasse0
 
 
 # Sélection de l'identifiant SK_ID_CURR à partir d'un menu déroulant
@@ -90,7 +90,7 @@ proba_defaut_paiment = 1 - proba_paiment
 
 
 
-if proba_paiment >= 0.55:
+if proba_paiment >= 0.50:
     st.write('<p style="color: green; font-weight: bold; font-size: 24px;">Le client {} est éligible à un prêt avec une probabilité de payement de {}%.</p>'.format(id_client, round(proba_paiment*100, 2)), unsafe_allow_html=True)
 else:
     st.write('<p style="color: red; font-weight: bold;font-size: 24px;">Le client {} n\'est pas éligible à un prêt. Sa probabilité de payement est faible, elle est de {}%.</p>'.format(id_client, round(proba_paiment*100, 2)), unsafe_allow_html=True)
@@ -210,8 +210,6 @@ plot = px.scatter(x=x, y=y)
 client_point = plot.add_trace(go.Scatter(x=data_client[feature_2].values, y=data_client[feature_3].values, mode = 'markers', marker_symbol = 'star', marker_size = 15))
 
 st.plotly_chart(plot)
-
-
 
 
 
