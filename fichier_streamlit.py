@@ -219,10 +219,6 @@ st.plotly_chart(plot)
 
 
 
-
-
-
-
 #Pour lancer l'API vous devez installer les dépendences en executant la commande suivante dans un terminal de préférence
 #anaconda prompt: pip install -r requirements.txt
 # puis la commande suivante (après avoir lancé le fichier_FastApi): streamlit run fichier_streamlit.py

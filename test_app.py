@@ -15,7 +15,7 @@ url = "https://fast-api-dashboard-final.onrender.com/predict/"   # URL de l'API 
 
 
 def test_api():
-    id_client = 408267  # Sélectionner un identifiant client
+    id_client = 425479  # Sélectionner un identifiant client
 
     response = requests.get(url + str(id_client))
     assert response.status_code == 200  # Vérifier le code de statut HTTP
