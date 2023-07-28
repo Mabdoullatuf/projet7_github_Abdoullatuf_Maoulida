@@ -1,19 +1,25 @@
-name: Tests
+name: Run pytest
 
-on: [push]
+on:
+  push:
+    branches:
+      - main  # Ou la branche sur laquelle vous travaillez
 
 jobs:
-  test:
+  build:
+
     runs-on: ubuntu-latest
+
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Python 3.9
+    - name: Set up Python 3.8
       uses: actions/setup-python@v2
       with:
-        python-version: 3.9
+        python-version: 3.8
     - name: Install dependencies
-      run: pip install -r requirements.txt
-    - name: Run tests
       run: |
-        pip install pytest pytest-cov
-        pytest test_app.py --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
+        python -m pip install --upgrade pip
+        pip install pytest requests_mock pandas numpy streamlit
+    - name: Run tests with pytest
+      run: |
+        pytest
