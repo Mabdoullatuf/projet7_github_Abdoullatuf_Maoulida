@@ -8,6 +8,16 @@ import os
 
 from fichier_streamlit import get_prediction  
 
+
+def test_get_prediction_response():
+    response = requests.get("https://fast-api-dashboard-final.onrender.com/predict/123")
+    assert response.status_code == 200
+    if response.status_code == 200:
+    prediction_data = response.json()
+else:
+    print(f"Request failed with status {response.status_code}")
+    
+
 def test_get_prediction():
     with requests_mock.Mocker() as m:
         m.get('https://fast-api-dashboard-final.onrender.com/predict/123', json={'probaClasse0': 0.3, 'probaClasse1': 0.7})
@@ -15,8 +25,6 @@ def test_get_prediction():
         assert prediction_data['probaClasse0'] == 0.3
         assert prediction_data['probaClasse1'] == 0.7
         
-def test_get_prediction_response():
-    response = requests.get("https://fast-api-dashboard-final.onrender.com/predict/123")
-    assert response.status_code == 200
+
 
 
