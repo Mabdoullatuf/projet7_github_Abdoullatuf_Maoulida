@@ -40,7 +40,7 @@ def is_online_api_available(url):
 def get_prediction(id_client):
     
     # URLs 
-    local_url = f"http://127.0.0.1:8000//predict/{id_client}"
+    local_url = f"http://127.0.0.1:8000/predict/{id_client}"
     online_url = f"https://fast-api-dashboard-final.onrender.com/predict/{id_client}"
     
     # Check if online API is available
