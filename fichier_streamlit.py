@@ -26,18 +26,33 @@ df = pd.read_csv('df_dash.csv')
 with open('final_model.pkl', 'rb') as f:
     model = pickle.load(f)
 
+
+def is_online_api_available(url):
+    try:
+        response = requests.get(url)
+        return response.status_code == 200
+    except:
+        return False
+    
     
 # Définition de la fonction pour effectuer la prédiction
+
 def get_prediction(id_client):
     
-    # L'URL en local
-    #response = requests.get(f"http://localhost:8000/predict/{id_client}")
+    # URLs
+    local_url = f"http://localhost:8000/predict/{id_client}"
+    online_url = f"https://fast-api-dashboard-final.onrender.com/predict/{id_client}"
     
-    #URL en ligne déployé sur render.com
-    response = requests.get(f"https://fast-api-dashboard-final.onrender.com/predict/{id_client}")
-                           
+    # Check if online API is available
+    if is_online_api_available(online_url):
+        response = requests.get(online_url)
+    else:
+        response = requests.get(local_url)
+    
     prediction_data = response.json()
     return prediction_data
+
+
 
 
 
