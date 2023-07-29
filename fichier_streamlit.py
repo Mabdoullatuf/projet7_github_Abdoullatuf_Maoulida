@@ -32,7 +32,7 @@ def get_prediction(id_client):
     # L'URL en local
     #response = requests.get(f"http://localhost:8000/predict/{id_client}")
     
-    #URL en ligne
+    #URL en ligne déployé sur render.com
     response = request.get(f"https://fast-api-dashboard-final.onrender.com/predict/{id_client}")
                            
     prediction_data = response.json()
