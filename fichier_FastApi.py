@@ -3,6 +3,7 @@ from pydantic import BaseModel
 import pickle
 import numpy as np
 import pandas as pd
+import requests
 
 
 # Créer une instance de l'application FastAPI
