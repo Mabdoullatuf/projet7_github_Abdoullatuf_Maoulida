@@ -41,7 +41,7 @@ def is_online_api_available(url):
 def get_prediction(id_client):
     
     # URLs 
-    local_url = f"http://localhost/predict/{id_client}"
+    local_url = f"http://127.0.0.1:8000/predict/{id_client}"
     online_url = f"https://fast-api-dashboard-final.onrender.com/predict/{id_client}"
     
     # Check if online API is available
@@ -62,9 +62,10 @@ id_client = st.selectbox("Sélectionner l'identifiant du client", df_visual["SK_
 
 # Extraction des données associées à l'identifiant SK_ID_CURR sélectionné
 data_client = df.loc[df["SK_ID_CURR"] == id_client]
+data_client_visual = df_visual.loc[df_visual["SK_ID_CURR"] == id_client]
 
 # Afficher les infos du client sélectionné
-st.dataframe(data_client)
+st.dataframe(data_client_visual )
 
 # Obtenir la prédiction
 prediction_data = get_prediction(id_client)

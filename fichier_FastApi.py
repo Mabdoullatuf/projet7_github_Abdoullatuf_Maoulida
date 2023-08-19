@@ -15,6 +15,7 @@ with open('final_model.pkl', 'rb') as f:
 
 # Charger les données
 df = pd.read_csv('df_dash.csv')
+df_visual = pd.read_csv('df_dash_visual.csv')
 
 # Modèle de données pour l'entrée de l'API
 class ClientInput(BaseModel):
@@ -25,6 +26,10 @@ class ClientInput(BaseModel):
 def predict(id_client: int):
     # Extraction des données associées à l'identifiant SK_ID_CURR sélectionné
     data_client = df.loc[df["SK_ID_CURR"] == id_client]
+    
+    # Vérification si l'ID du client est dans le DataFrame
+    if data_client.empty:
+        return {"error": "Client ID n'est pas trouvé"}
 
     # Préparation des données pour la prédiction
     X = data_client.drop(["SK_ID_CURR", "TARGET", "prediction", "proba_1"], axis=1).values
