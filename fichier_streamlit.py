@@ -20,6 +20,7 @@ layout = "centered"
 
 # Charger les données
 df = pd.read_csv('df_dash.csv')
+df_visual = pd.read_csv('df_dash_visual.csv')
 
 
 # Charger le modèle LGBMClassifier pré-entraîné et enregistré
@@ -57,7 +58,7 @@ def get_prediction(id_client):
 
 
 # Sélection de l'identifiant SK_ID_CURR à partir d'un menu déroulant
-id_client = st.selectbox("Sélectionner l'identifiant du client", df["SK_ID_CURR"])
+id_client = st.selectbox("Sélectionner l'identifiant du client", df_visual["SK_ID_CURR"])
 
 # Extraction des données associées à l'identifiant SK_ID_CURR sélectionné
 data_client = df.loc[df["SK_ID_CURR"] == id_client]
