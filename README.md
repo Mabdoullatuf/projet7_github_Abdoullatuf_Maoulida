@@ -1,7 +1,7 @@
 # projet7_model_scoring_Abdoullatuf_Maoulida
 Projet de Prédiction avec LGBMClassifier
 
-Description
+Description:
 Ce projet a pour objectif de développer un modèle prédictif basé sur le LGBMClassifier. À travers un processus rigoureux de sélection de fonctionnalités, 
 d'optimisation d'hyperparamètres et de validation avec des métriques métier spécifiques, nous avons cherché à créer un modèle robuste et performant pour notre cas d'utilisation.
 
